@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import ru.lexa.mimimetr.model.Kitty;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface KittyRepository extends CrudRepository<Kitty, Integer> {

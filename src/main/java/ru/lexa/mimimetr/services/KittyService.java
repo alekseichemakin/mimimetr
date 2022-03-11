@@ -2,13 +2,11 @@ package ru.lexa.mimimetr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lexa.mimimetr.model.Kitty;
 import ru.lexa.mimimetr.model.Pair;
 import ru.lexa.mimimetr.repository.KittyRepository;
-import ru.lexa.mimimetr.repository.PairRepository;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -18,9 +16,6 @@ public class KittyService {
 	@Autowired
 	KittyRepository kittyRepository;
 
-	@Autowired
-	PairRepository pairRepository;
-
 	public Pair getRandomPair(List<Pair> pairs) {
 		if (pairs == null || pairs.isEmpty())
 			return null;
@@ -29,8 +24,8 @@ public class KittyService {
 	}
 
 	public void calculateRating(Integer winner, Integer loser) {
-		Kitty winKat = getKitForId(winner);
-		Kitty losKat = getKitForId(loser);
+		Kitty winKat = searchById(winner);
+		Kitty losKat = searchById(loser);
 
 		Double eA = getExpiredRating(winKat.getRating(), losKat.getRating());
 		Double eB = getExpiredRating(losKat.getRating(), winKat.getRating());
@@ -38,8 +33,8 @@ public class KittyService {
 		winKat.setRating(getNewRating(winKat.getRating(), 1, eA));
 		losKat.setRating(getNewRating(losKat.getRating(), 0, eB));
 
-		kittyRepository.save(winKat);
-		kittyRepository.save(losKat);
+		save(winKat);
+		save(losKat);
 	}
 
 	//Ea = 1 / (1 + 10^((Rb-Ra)/400))
@@ -55,44 +50,40 @@ public class KittyService {
 		return newRat;
 	}
 
-	public Kitty getKitForId(Integer id) {
-		return kittyRepository.searchById(id);
-	}
-
 	public List<Kitty> getSortedByRat() {
-		return kittyRepository.findAll()
+		return findAll()
 				.stream()
 				.sorted((o1, o2) -> (int) (o2.getRating() - o1.getRating()))
 				.collect(Collectors.toList());
 	}
 
+	@Transactional
 	public void save(Kitty kitty) {
 		kittyRepository.save(kitty);
 	}
 
-//	@PostConstruct
-//	public List<Pair> initPairs() {
-//		List<Pair> pairs = new ArrayList<>();
-//		List<Kitty> kitties = kittyRepository.findAll();
-//		List<Pair> repoPairs = pairRepository.findAll();
-//
-//		for (int i = 0; i < kitties.size(); i++) {
-//			for (int j = i + 1; j < kitties.size(); j++) {
-//				int[] pair = new int[2];
-//				pair[0] = kitties.get(i).getId();
-//				pair[1] = kitties.get(j).getId();
-//				Pair p = new Pair(pair[0], pair[1]);
-//				if (!repoPairs.contains(p))
-//					pairs.add(p);
-//
-//			}
-//		}
-//
-//		pairRepository.saveAll(pairs);
-//		return pairs;
-//	}
-
+	@Transactional
 	public Kitty getKitForName(String name) {
 		return kittyRepository.searchKittyByName(name);
+	}
+
+	@Transactional
+	public Kitty searchById(Integer id) {
+		return kittyRepository.searchById(id);
+	}
+
+	@Transactional
+	public List<Kitty> findAll() {
+		return kittyRepository.findAll();
+	}
+
+	@Transactional
+	public Kitty searchKittyByName(String name) {
+		return kittyRepository.searchKittyByName(name);
+	}
+
+	@Transactional
+	public List<Integer> getAllIds() {
+		return kittyRepository.getAllIds();
 	}
 }

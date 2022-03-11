@@ -2,9 +2,9 @@ package ru.lexa.mimimetr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lexa.mimimetr.model.Kitty;
 import ru.lexa.mimimetr.model.Pair;
-import ru.lexa.mimimetr.repository.KittyRepository;
 import ru.lexa.mimimetr.repository.PairRepository;
 
 import javax.annotation.PostConstruct;
@@ -17,34 +17,29 @@ public class PairService {
 	PairRepository pairRepository;
 
 	@Autowired
-	KittyRepository kittyRepository;
+	KittyService kittyService;
 
 	@Autowired
 	UserService userService;
 
-	public List<Pair> finAll() {
-		return pairRepository.findAll();
-	}
-
 	public void addPairs(Integer id) {
-		List<Integer> repoIds = kittyRepository.getAllIds();
+		List<Integer> repoIds = kittyService.getAllIds();
 		List<Pair> newPairs = new ArrayList<>();
 
 		for (Integer repoId : repoIds)
 			if (!repoId.equals(id))
 				newPairs.add(new Pair(id, repoId));
 
-		pairRepository.saveAll(newPairs);
+		saveAll(newPairs);
 
 		userService.addNewPairs(newPairs);
-
 	}
 
 	@PostConstruct
 	public List<Pair> initPairs() {
 		List<Pair> pairs = new ArrayList<>();
-		List<Kitty> kitties = kittyRepository.findAll();
-		List<Pair> repoPairs = pairRepository.findAll();
+		List<Kitty> kitties = kittyService.findAll();
+		List<Pair> repoPairs = findAll();
 
 		for (int i = 0; i < kitties.size(); i++) {
 			for (int j = i + 1; j < kitties.size(); j++) {
@@ -57,7 +52,17 @@ public class PairService {
 			}
 		}
 
-		pairRepository.saveAll(pairs);
+		saveAll(pairs);
 		return pairs;
+	}
+
+	@Transactional
+	public List<Pair> findAll() {
+		return pairRepository.findAll();
+	}
+
+	@Transactional
+	public void saveAll(List<Pair> pairs) {
+		pairRepository.saveAll(pairs);
 	}
 }

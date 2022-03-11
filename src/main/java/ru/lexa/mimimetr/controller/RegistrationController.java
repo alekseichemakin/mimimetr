@@ -37,7 +37,7 @@ public class RegistrationController {
 		}
 
 		user.setRoles(Collections.singleton(Role.USER));
-		List<Pair> repPair = pairService.finAll();
+		List<Pair> repPair = pairService.findAll();
 
 		if (repPair != null)
 			user.setPairs(repPair);

@@ -19,13 +19,13 @@ import ru.lexa.mimimetr.services.UserService;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.UUID;
 
 @Controller
 public class MainController {
 	@Autowired
 	KittyService kittyService;
+
 	@Autowired
 	UserService userService;
 
@@ -36,18 +36,13 @@ public class MainController {
 	private String uploadPath;
 
 	@GetMapping
-	public String mainPage() {
+	public String mainPage(@AuthenticationPrincipal User user, Model model) {
+		model.addAttribute("user", user);
 		return "main";
 	}
 
 	@GetMapping("/random")
 	public String getRandom(Model model, @AuthenticationPrincipal User user) {
-//
-//		if (user.getPairs() == null || user.getPairs().isEmpty()) {
-//			pairService.finAll().forEach(p -> user.getPairs().add(p));
-//			userService.save(user);
-//		}
-
 		Pair pair = kittyService.getRandomPair(userService.findByUsername(user.getUsername()).getPairs());
 
 		if (pair == null)
@@ -56,8 +51,8 @@ public class MainController {
 		userService.deletePair(user.getId(), pair.getId());
 		user.getPairs().remove(pair);
 		userService.save(user);
-		model.addAttribute("cat1", kittyService.getKitForId(pair.getaId()));
-		model.addAttribute("cat2", kittyService.getKitForId(pair.getbId()));
+		model.addAttribute("cat1", kittyService.searchById(pair.getaId()));
+		model.addAttribute("cat2", kittyService.searchById(pair.getbId()));
 		return "random";
 	}
 
