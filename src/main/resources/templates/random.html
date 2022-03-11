@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>random</title>
+</head>
+<body>
+<div th:text="${cat1.getName()} + ' ' + ${cat1.getRating()} + ' ' + ${cat1.getPhoto()}"></div>
+<img th:src="'/img/' + ${cat1.getPhoto()}" width="100" height="100">
+<div th:text="${cat2.getName()} + ' ' + ${cat2.getRating()}"></div>
+<img th:src="'/img/' + ${cat2.getPhoto()}" width="100" height="100">
+<form th:action="@{/vote}" method="post">
+    <input name="winner" type="hidden" th:value="${cat1.getId()}" />
+    <input name="loser" type="hidden" th:value="${cat2.getId()}" />
+    <button type="submit">first</button>
+</form>
+<form th:action="@{/vote}" method="post">
+    <input name="winner" type="hidden" th:value="${cat2.getId()}" />
+    <input name="loser" type="hidden" th:value="${cat1.getId()}" />
+    <button type="submit">second</button>
+</form>
+</body>
+</html>
