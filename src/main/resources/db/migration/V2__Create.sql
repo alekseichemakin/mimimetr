@@ -1,21 +1,21 @@
 insert into kitty (name, photo, rating)
-VALUES ('tik', 'cat1.png', 1400);
+VALUES ('tik', '0BaVviy3Aig.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('tom', 'cat2.png', 1400);
+VALUES ('tom', '0Mec8qTSGCw.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('bob', 'cat3.png', 1400);
+VALUES ('bob', '5F-7Q93jdpQ.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('ken', 'cat4.png', 1400);
+VALUES ('ken', 'AmAhYCFVMtA.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('jax', 'cat5.png', 1400);
+VALUES ('jax', 'BaatqH21Q7M.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('rax', 'cat6.png', 1400);
+VALUES ('rax', 'ijygD6qK_nU.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('mot', 'cat7.png', 1400);
+VALUES ('mot', 'JPVxHVMp2MA.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('kit', 'cat8.png', 1400);
+VALUES ('kit', 'r7oHaHabq2A.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('dag', 'cat9.png', 1400);
+VALUES ('NIKA', 'TzXgbawlw1M.jpg', 1400);
 insert into kitty (name, photo, rating)
 VALUES ('ben', 'ben.png', 1400);
 
