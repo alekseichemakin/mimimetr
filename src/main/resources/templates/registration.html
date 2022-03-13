@@ -13,19 +13,7 @@
 
 </head>
 <body>
-<!--<div th:if="${param.error}">-->
-<!--    Invalid username and password.-->
-<!--</div>-->
-<!--<div th:if="${param.logout}">-->
-<!--    You have been logged out.-->
-<!--</div>-->
-<!--Add new user-->
-<!--<span th:if="${message != null}" th:text="${message}"></span>-->
-<!--<form th:action="@{/registration}" method="post">-->
-<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
+
 <!--NavBar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand mt-lg-0" href="/">Mimimemtr</a>
@@ -54,7 +42,7 @@
             </form>
         </span>
         <th:block sec:authorize="!isAuthenticated()">
-            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self" >
+            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self">
                 <button class="btn btn-outline-light my-2 my-sm-0">Login</button>
             </form>
         </th:block>
@@ -110,5 +98,6 @@
         </div>
     </div>
 </section>
+
 </body>
 </html>

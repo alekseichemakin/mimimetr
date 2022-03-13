@@ -64,11 +64,6 @@ public class MainController {
 		return "top";
 	}
 
-	@GetMapping("/add")
-	public String addForm() {
-		return "addNewCat";
-	}
-
 	@PostMapping("/vote")
 	public String vote(@RequestParam(name = "winner") Integer winner,
 	                   @RequestParam(name = "loser") Integer loser,
@@ -84,7 +79,6 @@ public class MainController {
 	                  @RequestParam("file") MultipartFile file, //add that name kitty is unical
 	                  @RequestParam String name,
 	                  Model model) {
-
 		if (user.getKitty() != null && !user.getRoles().contains(Role.ADMIN))
 			model.addAttribute("message", "You already have cat");
 		else if (file == null || name == null || name.isEmpty())
@@ -98,7 +92,7 @@ public class MainController {
 				model.addAttribute("message", "Error: upload file error");
 			}
 		}
-		return "addNewCat";
+		return "main";
 	}
 
 	private void addCat(MultipartFile file, String name, User user) throws IOException {

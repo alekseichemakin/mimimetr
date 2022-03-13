@@ -11,6 +11,115 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Vote</title>
 
+    <style>
+        /*.container {*/
+        /*    margin-top: 100px*/
+        /*}*/
+
+        .container .row .col-lg-4 {
+            display: flex;
+            justify-content: center
+        }
+
+        .card {
+            position: relative;
+            padding: 0;
+            margin: 0 !important;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2)
+        }
+
+        .card .card-image {
+            width: 100%;
+            max-height: 340px
+        }
+
+        .card .card-image img {
+            width: 100%;
+            max-height: 340px;
+            object-fit: cover
+        }
+
+        .card .card-content {
+            position: absolute;
+            bottom: -180px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            min-height: 140px;
+            width: 100%;
+            transition: bottom .4s ease-in;
+            box-shadow: 0 -10px 10px rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2)
+        }
+
+        .card:hover .card-content {
+            bottom: 0px
+        }
+
+        .card:hover .card-content h4,
+        .card:hover .card-content h5 {
+            transform: translateY(10px);
+            opacity: 1
+        }
+
+        .card .card-content h4,
+        .card .card-content h5 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+            transition: 0.8s;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-40px);
+            transition-delay: 0.2s
+        }
+
+        .card .card-content h5 {
+            transition: 0.5s;
+            font-weight: 200;
+            font-size: 0.8rem;
+            letter-spacing: 2px
+        }
+
+        .card .card-content .social-icons {
+            list-style: none;
+            padding: 0
+        }
+
+        .card .card-content .social-icons li {
+            margin: 10px;
+            transition: 0.5s;
+            transition-delay: calc(0.15s * var(--i));
+            transform: translateY(50px)
+        }
+
+        .card:hover .card-content .social-icons li {
+            transform: translateY(20px)
+        }
+
+        .card .card-content .social-icons li a {
+            color: #fff
+        }
+
+        .card .card-content .social-icons li a span {
+            font-size: 1.3rem
+        }
+
+        @media (max-width: 991.5px) {
+            .container {
+                margin-top: 20px
+            }
+
+            .container .row .col-lg-4 {
+                margin: 20px 0px
+            }
+        }
+    </style>
 </head>
 <body>
 <!--NavBar-->
@@ -41,7 +150,7 @@
             </form>
         </span>
         <th:block sec:authorize="!isAuthenticated()">
-            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self" >
+            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self">
                 <button class="btn btn-outline-light my-2 my-sm-0">Login</button>
             </form>
         </th:block>
@@ -53,32 +162,36 @@
     <footer class="footer">Choose who most mimi</footer>
 </blockquote>
 
-<div class="row" style="padding-left: 20%; padding-top: 5%;">
-    <div class="col-sm-6">
-        <div class="card text-center" style="width: 30rem;">
-            <img class="card-img-top" th:src="'/img/' + ${cat1.getPhoto()}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${cat1.getName()}">Card title</h5>
-                <form th:action="@{/vote}" method="post">
-                    <input name="winner" type="hidden" th:value="${cat1.getId()}" />
-                    <input name="loser" type="hidden" th:value="${cat2.getId()}" />
-                    <input name="pairId" type="hidden" th:value="${pairId}"/>
-                    <button class="btn btn-primary" type="submit">Choose</button>
-                </form>
+<div class="container">
+    <div class="row">
+        <div class="col" style="text-align: -webkit-center;">
+            <div class="card p-0">
+                <div class="card-image"><img th:src="'/img/' + ${cat1.getPhoto()}" alt=""></div>
+                <div class="card-content d-flex flex-column align-items-center">
+                    <h1 class="pt-2" th:text="${cat1.getName()}">SomeOne Famous</h1>
+                    <div></div>
+                    <form th:action="@{/vote}" method="post">
+                        <input name="winner" type="hidden" th:value="${cat1.getId()}" />
+                        <input name="loser" type="hidden" th:value="${cat2.getId()}" />
+                        <input name="pairId" type="hidden" th:value="${pairId}"/>
+                        <button class="btn btn-primary" type="submit">Choose</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card text-center" style="width: 30rem;">
-            <img class="card-img-top" th:src="'/img/' + ${cat2.getPhoto()}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${cat2.getName()}">Card title</h5>
-                <form th:action="@{/vote}" method="post">
-                    <input name="winner" type="hidden" th:value="${cat2.getId()}" />
-                    <input name="loser" type="hidden" th:value="${cat1.getId()}" />
-                    <input name="pairId" type="hidden" th:value="${pairId}"/>
-                    <button class="btn btn-primary" type="submit">Choose</button>
-                </form>
+        <div class="col" style="text-align: -webkit-center;">
+            <div class="card p-0">
+                <div class="card-image"><img th:src="'/img/' + ${cat2.getPhoto()}" alt=""></div>
+                <div class="card-content d-flex flex-column align-items-center">
+                    <h1 class="pt-2" th:text="${cat2.getName()}">SomeOne Famous</h1>
+                    <div></div>
+                    <form th:action="@{/vote}" method="post">
+                        <input name="winner" type="hidden" th:value="${cat2.getId()}"/>
+                        <input name="loser" type="hidden" th:value="${cat1.getId()}"/>
+                        <input name="pairId" type="hidden" th:value="${pairId}"/>
+                        <button class="btn btn-primary" type="submit">Choose</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

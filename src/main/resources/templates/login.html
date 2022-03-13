@@ -30,6 +30,9 @@
                     <a class="nav-link" href="/random">Vote</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCookie1">Add</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/" th:text="${#authentication.name}"></a>
                 </li>
             </th:block>
@@ -41,12 +44,14 @@
             </form>
         </span>
         <th:block sec:authorize="!isAuthenticated()">
-            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self" >
+            <form class="form-inline my-2 my-lg-0" th:action="@{/login}" target="_self">
                 <button class="btn btn-outline-light my-2 my-sm-0">Login</button>
             </form>
         </th:block>
     </div>
 </nav>
+
+<div th:if="${message != null}" th:text="${message}" class="alert alert-warning alert-dismissible fade show" role="alert"></div>
 
 <!--error login-->
 <div th:if="${param.error}" class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -94,5 +99,6 @@
         </div>
     </div>
 </section>
+
 </body>
 </html>
