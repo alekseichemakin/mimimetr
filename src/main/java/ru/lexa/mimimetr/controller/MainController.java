@@ -119,7 +119,7 @@ public class MainController {
 		String uuidFile = UUID.randomUUID().toString();
 		String fileName = uuidFile + "." + file.getOriginalFilename();
 
-		file.transferTo(new File( "/photos/" + fileName));
+		file.transferTo(new File( uploadPath + "/" + fileName));
 
 		return fileName;
 	}

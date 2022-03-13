@@ -1,23 +1,23 @@
 insert into kitty (name, photo, rating)
-VALUES ('tik', '0BaVviy3Aig.jpg', 1400);
+VALUES ('KRISTI', '0BaVviy3Aig.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('tom', '0Mec8qTSGCw.jpg', 1400);
+VALUES ('ANGELA', '0Mec8qTSGCw.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('bob', '5F-7Q93jdpQ.jpg', 1400);
+VALUES ('BOB', '5F-7Q93jdpQ.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('ken', 'AmAhYCFVMtA.jpg', 1400);
+VALUES ('MARSEL', 'AmAhYCFVMtA.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('jax', 'BaatqH21Q7M.jpg', 1400);
+VALUES ('ILNUR', 'BaatqH21Q7M.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('rax', 'ijygD6qK_nU.jpg', 1400);
+VALUES ('RUSTAM', 'ijygD6qK_nU.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('mot', 'JPVxHVMp2MA.jpg', 1400);
+VALUES ('TIMA', 'JPVxHVMp2MA.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('kit', 'r7oHaHabq2A.jpg', 1400);
+VALUES ('SONYA', 'r7oHaHabq2A.jpg', 1400);
 insert into kitty (name, photo, rating)
 VALUES ('NIKA', 'TzXgbawlw1M.jpg', 1400);
 insert into kitty (name, photo, rating)
-VALUES ('ben', 'ben.png', 1400);
+VALUES ('BEN', 'ben.png', 1400);
 
 insert into usr (password, username)
 VALUES ('admin', 'admin');
