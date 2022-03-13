@@ -19,6 +19,7 @@ import ru.lexa.mimimetr.services.UserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -48,17 +49,18 @@ public class MainController {
 		if (pair == null)
 			return "redirect:/result/";
 
-		userService.deletePair(user.getId(), pair.getId());
-		user.getPairs().remove(pair);
-		userService.save(user);
 		model.addAttribute("cat1", kittyService.searchById(pair.getaId()));
 		model.addAttribute("cat2", kittyService.searchById(pair.getbId()));
+		model.addAttribute("pairId", pair.getId());
 		return "random";
 	}
 
 	@GetMapping("/result")
 	public String result(Model model) {
-		model.addAttribute("kits", kittyService.getSortedByRat());
+		List<Kitty> sortedKits = kittyService.getSortedByRat();
+		model.addAttribute("kits", sortedKits.size() >= 10 ?
+				sortedKits.subList(0,10) :
+				sortedKits.subList(0, sortedKits.size()));
 		return "top";
 	}
 
@@ -69,7 +71,10 @@ public class MainController {
 
 	@PostMapping("/vote")
 	public String vote(@RequestParam(name = "winner") Integer winner,
-	                   @RequestParam(name = "loser") Integer loser) {
+	                   @RequestParam(name = "loser") Integer loser,
+	                   @RequestParam(name = "pairId") Integer pairId,
+	                   @AuthenticationPrincipal User user) {
+		userService.deletePair(user.getId(), pairId);
 		kittyService.calculateRating(winner, loser);
 		return "redirect:/random";
 	}
