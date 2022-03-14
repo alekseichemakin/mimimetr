@@ -46,9 +46,9 @@ public class MainController {
 	public String getRandom(Model model, @AuthenticationPrincipal User user) {
 		Pair pair = kittyService.getRandomPair(userService.findByUsername(user.getUsername()).getPairs());
 
-		if (pair == null)
+		if (pair == null) {
 			return "redirect:/result/";
-
+		}
 		model.addAttribute("cat1", kittyService.searchById(pair.getaId()));
 		model.addAttribute("cat2", kittyService.searchById(pair.getbId()));
 		model.addAttribute("pairId", pair.getId());
@@ -76,7 +76,7 @@ public class MainController {
 
 	@PostMapping("/add")
 	public String add(@AuthenticationPrincipal User user,
-	                  @RequestParam("file") MultipartFile file, //add that name kitty is unical
+	                  @RequestParam("file") MultipartFile file,
 	                  @RequestParam String name,
 	                  Model model) {
 		if (user.getKitty() != null && !user.getRoles().contains(Role.ADMIN)) {
@@ -100,13 +100,11 @@ public class MainController {
 		String fileName;
 
 		fileName = createFile(file);
-
 		kitty.setPhoto(fileName);
 		kitty.setName(name);
 		kitty.setRating(1400);
-
 		kittyService.save(kitty);
-		pairService.addPairs(kitty.getId()); //add to table pairs new pairs and to ech user add new pairs
+		pairService.addPairs(kitty.getId());
 		userService.addKitty(user, kitty);
 	}
 
@@ -116,12 +114,9 @@ public class MainController {
 		if (!uploadDir.exists()) {
 			uploadDir.mkdir();
 		}
-
 		String uuidFile = UUID.randomUUID().toString();
 		String fileName = uuidFile + "." + file.getOriginalFilename();
-
 		file.transferTo(new File(uploadPath + "/" + fileName));
-
 		return fileName;
 	}
 

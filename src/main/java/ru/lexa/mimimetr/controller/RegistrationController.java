@@ -35,7 +35,6 @@ public class RegistrationController {
 			model.addAttribute("message", "User exists!");
 			return "registration";
 		}
-
 		user.setRoles(Collections.singleton(Role.USER));
 		List<Pair> repPair = pairService.findAll();
 
@@ -43,7 +42,6 @@ public class RegistrationController {
 			user.setPairs(repPair);
 		}
 		userService.save(user);
-
 		return "redirect:/login";
 	}
 }

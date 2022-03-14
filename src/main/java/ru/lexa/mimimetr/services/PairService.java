@@ -31,9 +31,7 @@ public class PairService {
 				newPairs.add(new Pair(id, repoId));
 			}
 		}
-
 		saveAll(newPairs);
-
 		userService.addNewPairs(newPairs);
 	}
 
@@ -54,7 +52,6 @@ public class PairService {
 				}
 			}
 		}
-
 		saveAll(pairs);
 		return pairs;
 	}

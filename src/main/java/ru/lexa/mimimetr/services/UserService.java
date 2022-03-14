@@ -24,7 +24,6 @@ public class UserService implements UserDetailsService {
 		for (User user : users) {
 			user.getPairs().addAll(newPairs);
 		}
-
 		saveAll(users);
 	}
 

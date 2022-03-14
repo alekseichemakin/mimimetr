@@ -28,13 +28,11 @@ public class KittyService {
 	public void calculateRating(Integer winner, Integer loser) {
 		Kitty winKat = searchById(winner);
 		Kitty losKat = searchById(loser);
-
 		Double eA = getExpiredRating(winKat.getRating(), losKat.getRating());
 		Double eB = getExpiredRating(losKat.getRating(), winKat.getRating());
 
 		winKat.setRating(getNewRating(winKat.getRating(), 1, eA));
 		losKat.setRating(getNewRating(losKat.getRating(), 0, eB));
-
 		save(winKat);
 		save(losKat);
 	}
