@@ -59,7 +59,7 @@ public class MainController {
 	public String result(Model model) {
 		List<Kitty> sortedKits = kittyService.getSortedByRat();
 		model.addAttribute("kits", sortedKits.size() >= 10 ?
-				sortedKits.subList(0,10) :
+				sortedKits.subList(0, 10) :
 				sortedKits.subList(0, sortedKits.size()));
 		return "top";
 	}
@@ -79,13 +79,13 @@ public class MainController {
 	                  @RequestParam("file") MultipartFile file, //add that name kitty is unical
 	                  @RequestParam String name,
 	                  Model model) {
-		if (user.getKitty() != null && !user.getRoles().contains(Role.ADMIN))
+		if (user.getKitty() != null && !user.getRoles().contains(Role.ADMIN)) {
 			model.addAttribute("message", "You already have cat");
-		else if (file == null || name == null || name.isEmpty())
+		} else if (file == null || name == null || name.isEmpty()) {
 			model.addAttribute("message", "Name and file shouldn't be empty");
-		else if (kittyService.getKitForName(name) != null)
+		} else if (kittyService.getKitForName(name) != null) {
 			model.addAttribute("message", "Choose another name, cat with this name are exist");
-		else {
+		} else {
 			try {
 				addCat(file, name, user);
 			} catch (IOException e) {
@@ -113,13 +113,14 @@ public class MainController {
 	private String createFile(MultipartFile file) throws IOException {
 		File uploadDir = new File(uploadPath);
 
-		if (!uploadDir.exists())
+		if (!uploadDir.exists()) {
 			uploadDir.mkdir();
+		}
 
 		String uuidFile = UUID.randomUUID().toString();
 		String fileName = uuidFile + "." + file.getOriginalFilename();
 
-		file.transferTo(new File( uploadPath + "/" + fileName));
+		file.transferTo(new File(uploadPath + "/" + fileName));
 
 		return fileName;
 	}

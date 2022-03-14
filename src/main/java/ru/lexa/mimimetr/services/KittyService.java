@@ -17,9 +17,11 @@ public class KittyService {
 	KittyRepository kittyRepository;
 
 	public Pair getRandomPair(List<Pair> pairs) {
-		if (pairs == null || pairs.isEmpty())
+		if (pairs == null || pairs.isEmpty()) {
 			return null;
+		}
 		int index = new Random().nextInt(pairs.size());
+
 		return pairs.get(index);
 	}
 
@@ -45,8 +47,9 @@ public class KittyService {
 	//Ra’ = Ra + K * (Sa — Ea)
 	private double getNewRating(double rA, int sA, Double eA) {
 		double newRat = rA + 400 * (sA - eA);
-		if (newRat < 0)
+		if (newRat < 0) {
 			newRat = 0;
+		}
 		return newRat;
 	}
 

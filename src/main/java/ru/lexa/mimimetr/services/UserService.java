@@ -21,8 +21,9 @@ public class UserService implements UserDetailsService {
 	public void addNewPairs(List<Pair> newPairs) {
 		List<User> users = findAll();
 
-		for (User user : users)
+		for (User user : users) {
 			user.getPairs().addAll(newPairs);
+		}
 
 		saveAll(users);
 	}

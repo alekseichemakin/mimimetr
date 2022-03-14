@@ -26,9 +26,11 @@ public class PairService {
 		List<Integer> repoIds = kittyService.getAllIds();
 		List<Pair> newPairs = new ArrayList<>();
 
-		for (Integer repoId : repoIds)
-			if (!repoId.equals(id))
+		for (Integer repoId : repoIds) {
+			if (!repoId.equals(id)) {
 				newPairs.add(new Pair(id, repoId));
+			}
+		}
 
 		saveAll(newPairs);
 
@@ -47,8 +49,9 @@ public class PairService {
 				pair[0] = kitties.get(i).getId();
 				pair[1] = kitties.get(j).getId();
 				Pair p = new Pair(pair[0], pair[1]);
-				if (!repoPairs.contains(p))
+				if (!repoPairs.contains(p)) {
 					pairs.add(p);
+				}
 			}
 		}
 
