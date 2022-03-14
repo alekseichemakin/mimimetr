@@ -21,3 +21,4 @@
 ### Запуск
 1. Установить Docker
 2. sh start.sh
+3. http://localhost:8080/
