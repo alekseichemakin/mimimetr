@@ -15,7 +15,7 @@
 - Java Spring (Security, Data, MVC, Boot, Web)
 - Postgresql (Flyway, JDBC)
 - Thymeleaf
-- k8s
+- Docker/Docker-compose
 - Maven
 
 ### Запуск
